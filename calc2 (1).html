@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7085210628971984"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PickCalc</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#f9fafb;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:20px;
+}
+
+.container{
+background:white;
+width:100%;
+max-width:420px;
+padding:25px;
+border-radius:25px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+.logo{
+font-size:32px;
+font-weight:700;
+color:#4F46E5;
+text-align:center;
+}
+
+.slogan{
+text-align:center;
+font-size:14px;
+color:#666;
+margin-bottom:25px;
+}
+
+.section-title{
+font-size:16px;
+font-weight:600;
+margin-bottom:10px;
+margin-top:15px;
+}
+
+.colors{
+display:flex;
+gap:10px;
+margin-bottom:20px;
+}
+
+.color-btn{
+width:35px;
+height:35px;
+border-radius:50%;
+cursor:pointer;
+border:3px solid transparent;
+transition:0.2s;
+}
+
+.color-btn.active{
+border:3px solid black;
+transform:scale(1.15);
+}
+
+.theme-buttons{
+display:flex;
+gap:10px;
+margin-bottom:20px;
+}
+
+.theme-btn{
+flex:1;
+padding:10px;
+border:none;
+border-radius:12px;
+cursor:pointer;
+background:#eee;
+font-weight:600;
+transition:0.2s;
+}
+
+.theme-btn.active{
+color:white;
+}
+
+.start-btn{
+width:100%;
+padding:14px;
+border:none;
+border-radius:15px;
+color:white;
+font-size:17px;
+font-weight:600;
+cursor:pointer;
+transition:0.3s;
+}
+
+.start-btn:hover{
+transform:scale(1.03);
+filter:brightness(1.1);
+}
+
+#preview{
+margin-top:25px;
+padding:20px;
+border-radius:20px;
+text-align:center;
+font-size:20px;
+font-weight:700;
+color:white;
+}
+
+#calculator button{
+padding:14px;
+border:none;
+border-radius:10px;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+transition:0.15s;
+color:white;
+}
+
+#calculator button:hover{
+filter:brightness(1.15);
+transform:scale(1.05);
+}
+
+#calculator button:active{
+transform:scale(0.97);
+}
+
+.dark{
+background:#111827 !important;
+color:white !important;
+}
+
+.dark .section-title,
+.dark .logo,
+.dark .slogan{
+color:#e5e7eb !important;
+}
+
+.dark #screen{
+background:#1f2937 !important;
+color:white !important;
+}
+
+.neon{
+background:#000 !important;
+color:#00ffcc !important;
+box-shadow:0 0 25px #00ffcc;
+}
+
+.neon .section-title,
+.neon .logo,
+.neon .slogan{
+color:#00ffcc !important;
+}
+
+.neon #screen{
+background:#0a0a0a !important;
+color:#00ffcc !important;
+border:1px solid #00ffcc !important;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="logo">PickCalc</div>
+<div class="slogan">Pick your style. Calculate smarter.</div>
+
+<div class="section-title">Choose Color</div>
+
+<div class="colors">
+<div class="color-btn active" style="background:#4F46E5" onclick="setColor('#4F46E5',this)"></div>
+<div class="color-btn" style="background:#EC4899" onclick="setColor('#EC4899',this)"></div>
+<div class="color-btn" style="background:#10B981" onclick="setColor('#10B981',this)"></div>
+<div class="color-btn" style="background:#000000" onclick="setColor('#000000',this)"></div>
+<div class="color-btn" style="background:#8B5CF6" onclick="setColor('#8B5CF6',this)"></div>
+</div>
+
+<div class="section-title">Choose Theme</div>
+
+<div class="theme-buttons">
+<button class="theme-btn active" onclick="setTheme('light',this)">Light</button>
+<button class="theme-btn" onclick="setTheme('dark',this)">Dark</button>
+<button class="theme-btn" onclick="setTheme('neon',this)">Neon</button>
+</div>
+
+<button class="start-btn" onclick="startCalc()">Start Calculating</button>
+
+<div id="preview">12 + 8 = 20</div>
+
+<div id="calculator" style="display:none; margin-top:20px;">
+
+<input type="text" id="screen" readonly style="
+width:100%;
+padding:15px;
+font-size:22px;
+text-align:right;
+border:none;
+background:#eee;
+border-radius:12px;
+margin-bottom:15px;
+outline:none;
+">
+
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+
+<button onclick="press('7')">7</button>
+<button onclick="press('8')">8</button>
+<button onclick="press('9')">9</button>
+<button onclick="press('/')">÷</button>
+
+<button onclick="press('4')">4</button>
+<button onclick="press('5')">5</button>
+<button onclick="press('6')">6</button>
+<button onclick="press('*')">×</button>
+
+<button onclick="press('1')">1</button>
+<button onclick="press('2')">2</button>
+<button onclick="press('3')">3</button>
+<button onclick="press('-')">-</button>
+
+<button onclick="press('0')">0</button>
+<button onclick="press('.')">.</button>
+<button onclick="calculate()">=</button>
+<button onclick="press('+')">+</button>
+
+<button onclick="clearScreen()" style="grid-column:span 4;background:#ef4444 !important;color:white;">C</button>
+
+</div>
+</div>
+
+<!-- Footer -->
+<div style="text-align:center; margin-top:20px; padding-top:15px; border-top:1px solid #eee;">
+  <a href="privacy-policy.html" style="font-size:12px; color:#888; text-decoration:none;">Privacy Policy</a>
+  <span style="color:#ccc; margin:0 8px;">|</span>
+  <span style="font-size:12px; color:#bbb;">© 2025 PickCalc</span>
+</div>
+
+</div>
+
+<script>
+let currentColor = '#4F46E5';
+let currentTheme = 'light';
+
+function applyColor(color) {
+  document.querySelector('.start-btn').style.background = color;
+
+  document.querySelectorAll('.theme-btn').forEach(btn => {
+    if (btn.classList.contains('active') && currentTheme !== 'neon') {
+      btn.style.background = color;
+    }
+  });
+
+  let preview = document.getElementById('preview');
+  if (preview.style.display !== 'none') {
+    preview.style.background = color;
+  }
+
+  document.querySelectorAll('#calculator button').forEach(btn => {
+    if (!btn.getAttribute('onclick') || !btn.getAttribute('onclick').includes('clearScreen')) {
+      btn.style.background = color;
+    }
+  });
+}
+
+function setColor(color, el) {
+  currentColor = color;
+  document.querySelectorAll('.color-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  el.classList.add('active');
+  applyColor(color);
+}
+
+function setTheme(theme, el) {
+  currentTheme = theme;
+
+  document.querySelectorAll('.theme-btn').forEach(btn => {
+    btn.classList.remove('active');
+    btn.style.background = '#eee';
+    btn.style.color = '#333';
+  });
+
+  el.classList.add('active');
+
+  let container = document.querySelector('.container');
+  container.classList.remove('dark', 'neon');
+
+  if (theme === 'dark') {
+    container.classList.add('dark');
+    el.style.background = currentColor;
+    el.style.color = 'white';
+  } else if (theme === 'neon') {
+    container.classList.add('neon');
+    el.style.background = '#00ffcc';
+    el.style.color = '#000';
+  } else {
+    el.style.background = currentColor;
+    el.style.color = 'white';
+    applyColor(currentColor);
+  }
+}
+
+function startCalc() {
+  document.getElementById('preview').style.display = 'none';
+  document.getElementById('calculator').style.display = 'block';
+  applyColor(currentColor);
+}
+
+function press(value) {
+  document.getElementById('screen').value += value;
+}
+
+function calculate() {
+  let exp = document.getElementById('screen').value;
+  try {
+    let result = Function('return ' + exp)();
+    document.getElementById('screen').value = result;
+  } catch(e) {
+    document.getElementById('screen').value = 'Error';
+  }
+}
+
+function clearScreen() {
+  document.getElementById('screen').value = '';
+}
+
+window.onload = function() {
+  applyColor(currentColor);
+  document.querySelector('.theme-btn.active').style.background = currentColor;
+  document.querySelector('.theme-btn.active').style.color = 'white';
+};
+</script>
+
+</body>
+</html>
